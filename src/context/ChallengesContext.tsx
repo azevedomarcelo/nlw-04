@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import Cookies from 'js-cookie';
 import challenges from '../../challenges.json';
 import { LevelUpModal } from '../components/LevelUpModal';
@@ -70,7 +71,7 @@ export function ChallengesProvider({
 
     new Audio('/notification.mp3').play();
 
-    if(Notification.permission === 'granted') {
+    if(!isMobile && Notification.permission === 'granted') {
       new Notification('Novo desafio! 🎉', {
         body: `Valendo ${challenge.amount} xp!`,
       });
